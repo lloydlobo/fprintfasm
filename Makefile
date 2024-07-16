@@ -117,7 +117,7 @@ summary:
 #   Test 2 passed: Correct exit code
 #   exit code: 0
 #
-test:
+test: $(BIN)
 	time ./tests/test_gdb_main.sh && echo "exit code: $$?" && echo
 	time ./tests/test_main.sh && echo "exit code: $$?" && echo
 

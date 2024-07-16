@@ -1,17 +1,21 @@
 	; file: main.asm
 
 	;----------------------------------------------------------------------
-	; # Build and Run
+	; # fprintfasm
+	; Simple assembly kickstarter example for standard output `printf` via
+	; builtin `sys_write` calls.
+	; ---
+	; ## Build and Run
 	; ```bash
 	; make -B -j4 BIN=main && make run
 	; ```
 	; ---
-	; # Watch
+	; ## Watch
 	; ```bash
 	; fd -e asm | entr -cprs 'make -B clean & make -B -j4 BIN=main && make run'
 	; ---
 	; ```
-	; # Glossary
+	; ## Glossary
 	; register extended: rax rcx rdx rbx [like ACDC] (in order: 0 1 2 3)
 	; register instruction pointer: rip [address of next instruction to run]
 	; register (src/dst) instruction: rsi rdi [source destination] [source: top of the stack]
@@ -104,3 +108,4 @@ progn:
 	;# │    0x40103e                        sub    $0x0, %al                                                                                                                                          │
 	;# └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 	;# native process 180933 In: _start                                                                                                                                             L38   PC: 0x40101c
+

@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# ```bash
+# chmod +x tests/test_main.sh
+# ./tests/test_main.sh
+# ```
+
 set -xe
 
 #------------------------------------------------------------------------------
@@ -7,9 +12,12 @@ set -xe
 #------------------------------------------------------------------------------
 
 # Compile the assembly code
-# $ nasm -f elf64 -g -Wlabel-orphan -Wno-orphan-labels -Ox main.asm
-# $ ld -o main main.o
-make -B -j4 BIN=main
+#
+# ```bash
+# nasm -f elf64 -g -Wlabel-orphan -Wno-orphan-labels -Ox main.asm
+# ld -o main main.o
+# ```
+make -B -j4 --trace BIN=main
 
 #------------------------------------------------------------------------------
 # Tests
