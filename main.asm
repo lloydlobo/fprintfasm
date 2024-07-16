@@ -4,6 +4,9 @@
 	; # Build and run:
 	; $ make -B -j4 BIN=main
 	; ---
+	; # Watch:
+	; $ fd -e asm | entr -cprs 'make -B clean & make -B -j4 BIN=main'
+	; ---
 	; # Glossary:
 	; register extended: rax rcx rdx rbx [like ACDC] (in order: 0 1 2 3)
 	; register instruction pointer: rip [address of next instruction to run]
@@ -17,7 +20,7 @@
 
 	%define SYS_EXIT 60; Note: 32bit would use `mov eax, 1`
 	%define SYS_WRITE 1; Note: 32bit would use: `mov eax, 4`
-	%define STDOUT 1; File descriptor 1 for standard out
+	%define STDOUT 1; File descriptor 1 for standard output
 
 	segment .text
 
@@ -25,7 +28,7 @@ fprintfasm:
 	mov rax, SYS_WRITE; Note: rax often used as first argument for functions
 	mov rdi, STDOUT
 	mov rsi, progn; Note: rsi/rdi for strings processing src/dst instructions
-	mov rdx, n_progn; Length of string in progn
+	mov rdx, n_progn; Length of string in `progn`
 	syscall
 
 	ret
@@ -33,7 +36,7 @@ fprintfasm:
 global _start
 
 _start:
-	;fprintf(stdout, "%s", progn); Write progn to stdout
+	;fprintf(stdout, "%s", progn); Write progn to standard output
 	;----------------------------------------------------------------------
 	call fprintfasm
 	;----------------------------------------------------------------------
