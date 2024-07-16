@@ -1,13 +1,17 @@
 	; file: main.asm
 
 	;----------------------------------------------------------------------
-	; # Build and run:
-	; $ make -B -j4 BIN=main
+	; # Build and Run
+	; ```bash
+	; make -B -j4 BIN=main && make run
+	; ```
 	; ---
-	; # Watch:
-	; $ fd -e asm | entr -cprs 'make -B clean & make -B -j4 BIN=main'
+	; # Watch
+	; ```bash
+	; fd -e asm | entr -cprs 'make -B clean & make -B -j4 BIN=main && make run'
 	; ---
-	; # Glossary:
+	; ```
+	; # Glossary
 	; register extended: rax rcx rdx rbx [like ACDC] (in order: 0 1 2 3)
 	; register instruction pointer: rip [address of next instruction to run]
 	; register (src/dst) instruction: rsi rdi [source destination] [source: top of the stack]
