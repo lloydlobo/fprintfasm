@@ -22,7 +22,7 @@
 	%define SYS_WRITE 1; Note: 32bit would use: `mov eax, 4`
 	%define STDOUT 1; File descriptor 1 for standard output
 
-	segment .text
+	segment .text; [ section ]
 
 fprintfasm:
 	mov rax, SYS_WRITE; Note: rax often used as first argument for functions
@@ -47,6 +47,8 @@ _start:
 	mov     rdi, 0
 	syscall ; Call the kernel. Note: 32bit would use `int 0x80` interrupt.
 	;----------------------------------------------------------------------
+
+	segment .data; [ section ]
 
 progn:
 	db 'fprintfasm 0.1.0', 0x0a; `0x0a` is linefeed character for newline
