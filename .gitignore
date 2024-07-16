@@ -1,5 +1,8 @@
+fprintfasm
 main
+
 main.o
+fprintfasm.o
 
 *.un~
 
