@@ -71,28 +71,35 @@ summary:
 	@stat $(BIN).o && echo 
 	@stat $(BIN) && echo 
 
-# make disassemble-binary:
-# NOTE(Lloyd): ensure to first remove -g file while compiling the binary
+## make disassemble-binary:
 #
-# fprintfasm:     file format elf64-x86-64
+# NOTE(Lloyd): The following output had to first omot `-g` debug flag while
+# compiling the object file; and then link via ld to executable `fprintfasm`.
+# ```bash
+# objdump -S fprintfasm
+# ```
+# Output:
+#
+#   fprintfasm:     file format elf64-x86-64
 #
 #
-# Disassembly of section .text:
+#   Disassembly of section .text:
 #
-# 0000000000401000 <fprintfasm>:
-#   401000:       b8 01 00 00 00          mov    $0x1,%eax
-#   401005:       bf 01 00 00 00          mov    $0x1,%edi
-#   40100a:       48 be 00 20 40 00 00    movabs $0x402000,%rsi
-#   401011:       00 00 00
-#   401014:       ba 0b 00 00 00          mov    $0xb,%edx
-#   401019:       0f 05                   syscall
-#   40101b:       c3                      ret
+#   0000000000401000 <fprintfasm>:
+#     401000:       b8 01 00 00 00          mov    $0x1,%eax
+#     401005:       bf 01 00 00 00          mov    $0x1,%edi
+#     40100a:       48 be 00 20 40 00 00    movabs $0x402000,%rsi
+#     401011:       00 00 00
+#     401014:       ba 0b 00 00 00          mov    $0xb,%edx
+#     401019:       0f 05                   syscall
+#     40101b:       c3                      ret
 #
-# 000000000040101c <_start>:
-#   40101c:       e8 df ff ff ff          call   401000 <fprintfasm>
-#   401021:       b8 3c 00 00 00          mov    $0x3c,%eax
-#   401026:       bf 00 00 00 00          mov    $0x0,%edi
-#   40102b:       0f 05                   syscall
+#   000000000040101c <_start>:
+#     40101c:       e8 df ff ff ff          call   401000 <fprintfasm>
+#     401021:       b8 3c 00 00 00          mov    $0x3c,%eax
+#     401026:       bf 00 00 00 00          mov    $0x0,%edi
+#     40102b:       0f 05                   syscall
+#
 disassemble-binary:
 	objdump -S $(BIN)
 
