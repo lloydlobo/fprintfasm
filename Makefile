@@ -1,12 +1,17 @@
 # Makefile
 
-# ## Tips
+## Usage
 #
-# $ make
-# nasm -f elf64 main.asm
-#
-# $ make -B BIN=main_f64
-# nasm -f elf64 main_f64.asm
+# ```bash
+# make -B -j4 BIN=main && make run
+# ```
+# Output:
+#   nasm -f elf64 -g -Wlabel-orphan -Wno-orphan-labels -Ox main.asm
+#   ld -o main main.o
+#   ./main
+#   fprintfasm
+#   exit code: 0
+
 BIN=main
 
 SRCS=$(BIN).asm
@@ -14,29 +19,44 @@ SRCS=$(BIN).asm
 OBJS=$(SRCS:.asm=.o)
 
 COMPILER=nasm
+
 COMPILER_FLAGS=-f elf64 -g
 COMPILER_FLAGS+=-Wlabel-orphan -Wno-orphan-labels
+# -O number Optimize branch offsets. 
+#  •   -O0: No optimization 
+#  •   -O1: Minimal optimization 
+#  •   -Ox: Multipass optimization (default)
+COMPILER_FLAGS+=-Ox
 # -M Causes nasm to output Makefile-style dependencies to stdout; normal output is suppressed.
 # COMPILER_FLAGS+=-M
-# -O number Optimize branch offsets. •   -O0: No optimization •   -O1: Minimal optimization •   -Ox: Multipass optimization (default)
-COMPILER_FLAGS+=-Ox
 
 LDLIBS=
 DFLAGS=
 
-# ## Usage
-#
-# $ nasm -f elf64 main.asm && ld -o main main.o && ./main
+# ```bash
+# make
+# ```
+# Output:
+#   nasm -f elf64 -g -Wlabel-orphan -Wno-orphan-labels -Ox main.asm
+#   ld -o main main.o
 $(BIN):
 	$(COMPILER) $(COMPILER_FLAGS) $(SRCS)
-	stat $(BIN).o
 	ld -o $(BIN) $(BIN).o
-	stat $(BIN)
+
+run:
 	./$(BIN)
 	@echo "exit code: $$?"
 
+summary:
+	stat $(BIN).o
+	stat $(BIN)
+
+# + yes
+# + gdb -ex 'break _start' -ex run -ex 'info registers' -ex quit ./main
+# ...
+# Quit anyway? (y or n) [answered Y; input not from terminal]
 test:
-	@echo "unimplemented"
+	./tests/test_gdb_main.sh 
 
 clean:
 	trash *.o

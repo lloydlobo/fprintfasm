@@ -2,4 +2,4 @@
 
 set -xe
 
-gdb -ex "break _start" -ex "run" -ex "info registers" -ex "quit" ./main
+yes | gdb -ex "break _start" -ex "run" -ex "info registers" -ex "quit" ./main

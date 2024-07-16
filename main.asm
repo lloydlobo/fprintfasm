@@ -51,8 +51,8 @@ _start:
 	segment .data; [ section ]
 
 progn:
-	db 'fprintfasm 0.1.0', 0x0a; `0x0a` is linefeed character for newline
-	n_progn  equ $-progn; > 16+1
+	db 'fprintfasm', 0x0a; `0x0a` is linefeed character for newline
+	n_progn  equ $-progn; > 10+1
 
 ;x:
 	;resb 1
